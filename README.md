@@ -59,16 +59,16 @@ Once the plugin has been installed, configured and enabled any request to the St
 
 ```json
 {
-  data: {
-    id: 1,
-    attributes: {
-      title: "the title",
-      createdAt: "2022-02-11T01:51:49.902Z",
-      updatedAt: "2022-02-11T01:51:52.797Z",
-      publishedAt: "2022-02-11T01:51:52.794Z",
+  "data": {
+    "id": 1,
+    "attributes": {
+      "title": "the title",
+      "createdAt": "2022-02-11T01:51:49.902Z",
+      "updatedAt": "2022-02-11T01:51:52.797Z",
+      "publishedAt": "2022-02-11T01:51:52.794Z",
     },
   },
-  meta: {},
+  "meta": {},
 }
 ```
 
@@ -76,14 +76,14 @@ Once the plugin has been installed, configured and enabled any request to the St
 
 ```json
 {
-  data: {
-    id: 1,
-    title: "the title",
-    createdAt: "2022-02-11T01:51:49.902Z",
-    updatedAt: "2022-02-11T01:51:52.797Z",
-    publishedAt: "2022-02-11T01:51:52.794Z",
+  "data": {
+    "id": 1,
+    "title": "the title",
+    "createdAt": "2022-02-11T01:51:49.902Z",
+    "updatedAt": "2022-02-11T01:51:52.797Z",
+    "publishedAt": "2022-02-11T01:51:52.794Z",
   },
-  meta: {},
+  "meta": {},
 }
 ```
 
