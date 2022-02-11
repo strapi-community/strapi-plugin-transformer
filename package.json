@@ -1,0 +1,59 @@
+{
+	"$schema": "https://json.schemastore.org/package",
+	"name": "strapi-plugin-transformer",
+	"version": "1.0.0",
+	"description": "A plugin for Strapi Headless CMS that provides the ability to transform the API response.",
+	"scripts": {
+		"lint": "eslint . --fix",
+		"format": "prettier --write **/*.{ts,js,json,yml}"
+	},
+	"author": {
+		"name": "@ComfortablyCoding",
+		"url": "https://github.com/ComfortablyCoding"
+	},
+	"maintainers": [
+		{
+			"name": "@ComfortablyCoding",
+			"url": "https://github.com/ComfortablyCoding"
+		}
+	],
+	"homepage": "https://github.com/ComfortablyCoding/strapi-plugin-transformer#readme",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ComfortablyCoding/strapi-plugin-transformer.git"
+	},
+	"bugs": {
+		"url": "https://github.com/ComfortablyCoding/strapi-plugin-transformer/issues"
+	},
+	"dependencies": {},
+	"devDependencies": {
+		"eslint": "^8.8.0",
+		"eslint-config-prettier": "^8.3.0",
+		"eslint-plugin-node": "^11.1.0",
+		"prettier": "^2.5.1"
+	},
+	"peerDependencies": {
+		"@strapi/strapi": "^4.0.7",
+		"lodash": "^4.17.21",
+		"yup": "^0.32.9"
+	},
+	"strapi": {
+		"displayName": "Transformer",
+		"description": "A plugin for Strapi Headless CMS that provides the ability to transform the API response.",
+		"name": "transformer",
+		"kind": "plugin"
+	},
+	"engines": {
+		"node": ">=12.x.x <=16.x.x",
+		"npm": ">=6.0.0"
+	},
+	"keywords": [
+		"strapi",
+		"strapi-plugin",
+		"plugin",
+		"strapi plugin",
+		"transform",
+		"response"
+	],
+	"license": "MIT"
+}
