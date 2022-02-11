@@ -30,7 +30,7 @@ The plugin configuration is stored in a config file located at `./config/plugins
 
 ```javascript
 module.exports = ({ env }) => ({
- 'strapi-plugin-transformer': {
+ 'transformer': {
     enabled: true,
     config: {
       prefix: '/api/'

@@ -5,6 +5,6 @@ const pluginPkg = require('../../package.json');
  *
  * @return plugin id
  */
-const pluginId = pluginPkg.name;
+const pluginId = pluginPkg.strapi.name;
 
 module.exports = { pluginId };
