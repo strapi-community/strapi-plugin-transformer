@@ -2,12 +2,12 @@ const _ = require('lodash');
 
 module.exports = () => ({
 	index: function transform(data) {
-		// array
+		// collection
 		if (Array.isArray(data) && data.length && data[0].attributes) {
 			return data.map((e) => transform(e));
 		}
 
-		// attributes
+		// single / attributes
 		if (_.has(data, 'attributes')) {
 			return transform({
 				id: data.id,
@@ -15,11 +15,12 @@ module.exports = () => ({
 			});
 		}
 
-		// relation
-		const key = _.findKey(data, (p) => p && !Array.isArray(p) && p.data);
-		if (key) {
-			data[key] = transform(data[key].data);
-		}
+		// relation(s)
+		_.forEach(data, (value, key) => {
+			if (value && !Array.isArray(value) && value.data) {
+				data[key] = transform(value.data);
+			}
+		});
 
 		return data;
 	},
