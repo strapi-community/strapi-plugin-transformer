@@ -9,9 +9,13 @@ const transform = async (strapi, ctx, next) => {
 
 	await next();
 
+	// ensure body exists, occurs on non existent route
+	if (!ctx.body) {
+		return;
+	}
+
 	// only process api requests.
 	if (isAPIRequest(ctx, settings.prefix)) {
-		console.log('processing');
 		const { data } = ctx.body;
 
 		// ensure no error returned.
