@@ -21,3 +21,6 @@ npm-debug.log
 
 # github
 .github
+
+# tests
+__tests__
