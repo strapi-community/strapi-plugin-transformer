@@ -2,6 +2,10 @@
 
 A plugin for [Strapi](https://github.com/strapi/strapi) that provides the ability to transform the API response.
 
+[![Downloads](https://img.shields.io/npm/dm/strapi-plugin-transformer?style=for-the-badge)](https://img.shields.io/npm/dm/strapi-plugin-transformer?style=for-the-badge)
+[![Install size](https://img.shields.io/npm/l/strapi-plugin-transformer?style=for-the-badge)](https://img.shields.io/npm/l/strapi-plugin-transformer?style=for-the-badge)
+[![Package version](https://img.shields.io/github/v/release/ComfortablyCoding/strapi-plugin-transformer?style=for-the-badge)](https://img.shields.io/github/v/release/ComfortablyCoding/strapi-plugin-transformer?style=for-the-badge)
+
 ## Requirements
 
 The installation requirements are the same as Strapi itself and can be found in the documentation on the [Quick Start](https://strapi.io/documentation/developer-docs/latest/getting-started/quick-start.html) page in the Prerequisites info card.
