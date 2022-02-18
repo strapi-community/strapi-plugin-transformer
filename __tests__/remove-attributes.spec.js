@@ -1,7 +1,9 @@
+'use strict';
+
 const transformService = require('../server/services/transform-service');
+const { data } = require('./mock');
 
 const { removeAttributeKey } = transformService();
-const { data } = require('./mock');
 
 describe('removeAttributes', () => {
 	// single

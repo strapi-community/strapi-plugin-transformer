@@ -1,3 +1,5 @@
+'use strict';
+
 const pluginPkg = require('../../package.json');
 
 /**
