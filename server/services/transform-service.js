@@ -2,7 +2,7 @@ const _ = require('lodash');
 const { removeObjectKey } = require('../util/removeObjectKey');
 
 module.exports = () => ({
-	index: function transform(data) {
+	removeAttributeKey: function transform(data) {
 		// single
 		if (_.has(data, 'attributes')) {
 			return transform(removeObjectKey(data, 'attributes'));
