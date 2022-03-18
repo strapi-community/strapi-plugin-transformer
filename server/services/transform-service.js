@@ -3,7 +3,11 @@
 const _ = require('lodash');
 const { removeObjectKey } = require('../util/removeObjectKey');
 
-module.exports = () => ({
+const defaultOptions = {
+	keepRelationsDataAttribute: true,
+};
+
+module.exports = (options = defaultOptions) => ({
 	removeAttributeKey: function transform(data) {
 		// single
 		if (_.has(data, 'attributes')) {
@@ -25,12 +29,25 @@ module.exports = () => ({
 			if (_.has(value, 'data')) {
 				// single
 				if (_.isObject(value.data)) {
-					data[key]['data'] = transform(value.data);
+					if (options.keepRelationsDataAttribute) {
+						data[key]['data'] = transform(value.data);
+					} else {
+						data[key] = transform(value.data);
+					}
 				}
 
 				// many
 				if (_.isArray(value.data)) {
-					data[key]['data'] = value.data.map((e) => transform(e));
+					if (options.keepRelationsDataAttribute) {
+						data[key]['data'] = value.data.map((e) => transform(e));
+					} else {
+						data[key] = value.data.map((e) => transform(e));
+					}
+				}
+
+				// null data
+				if (!options.keepRelationsDataAttribute && value.data === null) {
+					data[key] = null;
 				}
 			}
 
