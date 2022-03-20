@@ -20,7 +20,7 @@ const transform = async (strapi, ctx, next) => {
 
 		// ensure no error returned.
 		if (data) {
-			ctx.body['data'] = getPluginService(strapi, 'transformService').removeAttributeKey(data);
+			ctx.body['data'] = getPluginService('transformService').response(settings, data);
 		}
 	}
 };
