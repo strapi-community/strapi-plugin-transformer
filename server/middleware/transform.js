@@ -2,10 +2,9 @@
 
 const { getPluginService } = require('../util/getPluginService');
 const { isAPIRequest } = require('../util/isAPIRequest');
-const { pluginId } = require('../util/pluginId');
 
 const transform = async (strapi, ctx, next) => {
-	const settings = strapi.config.get(`plugin.${pluginId}`);
+	const settings = getPluginService('settingsService').get();
 
 	await next();
 
@@ -20,7 +19,7 @@ const transform = async (strapi, ctx, next) => {
 
 		// ensure no error returned.
 		if (data) {
-			ctx.body['data'] = getPluginService(strapi, 'transformService').removeAttributeKey(data);
+			ctx.body['data'] = getPluginService('transformService').response(settings, data);
 		}
 	}
 };

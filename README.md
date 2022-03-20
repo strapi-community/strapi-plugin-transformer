@@ -1,6 +1,6 @@
 # strapi-plugin-transformer
 
-A plugin for [Strapi](https://github.com/strapi/strapi) that provides the ability to transform the API response.
+A plugin for [Strapi](https://github.com/strapi/strapi) that provides the ability to transform the API request and/or response.
 
 [![Downloads](https://img.shields.io/npm/dm/strapi-plugin-transformer?style=for-the-badge)](https://img.shields.io/npm/dm/strapi-plugin-transformer?style=for-the-badge)
 [![Install size](https://img.shields.io/npm/l/strapi-plugin-transformer?style=for-the-badge)](https://img.shields.io/npm/l/strapi-plugin-transformer?style=for-the-badge)
@@ -20,11 +20,9 @@ The installation requirements are the same as Strapi itself and can be found in 
 
 ```sh
 npm install strapi-plugin-transformer
-```
 
-**or**
+# OR
 
-```sh
 yarn add strapi-plugin-transformer
 ```
 
@@ -32,14 +30,22 @@ yarn add strapi-plugin-transformer
 
 The plugin configuration is stored in a config file located at `./config/plugins.js`.
 
+A sample configuration
+
 ```javascript
 module.exports = ({ env }) => ({
+  // ..
  'transformer': {
     enabled: true,
     config: {
-      prefix: '/api/'
+      prefix: '/api/',
+      responseTransforms: {
+        removeAttributesKey: true,
+        removeDataKey: true,
+      }
     }
   },
+  // ..
 });
 ```
 
@@ -50,6 +56,9 @@ module.exports = ({ env }) => ({
 | Property | Description | Type | Default | Required |
 | -------- | ----------- | ---- | ------- | -------- |
 | prefix | The prefix for the API | String | '/api/' | No |
+| responseTransforms | The transformations to enable for the API response | Object | undefined | No |
+| responseTransforms.removeAttributesKey | Removes the attributes key from the response | Boolean | false | No |
+| responseTransforms.removeDataKey | Removes the data key from the response | Boolean | false | No |
 
 ## Usage
 
@@ -57,7 +66,9 @@ Once the plugin has been installed, configured and enabled any request to the St
 
 ## Current Supported Transformations
 
-### Remove the attributes key and shift all of its properties up a level
+### Remove the attributes key
+
+This response transform will remove the attributes key from the response and shift all of its properties up one level.
 
 #### Before
 
@@ -66,10 +77,21 @@ Once the plugin has been installed, configured and enabled any request to the St
   "data": {
     "id": 1,
     "attributes": {
-      "title": "the title",
+      "title": "Lorem Ipsum",
       "createdAt": "2022-02-11T01:51:49.902Z",
       "updatedAt": "2022-02-11T01:51:52.797Z",
       "publishedAt": "2022-02-11T01:51:52.794Z",
+      "ipsum": {
+        "data": {
+          "id": 2,
+          "attributes": {
+            "title": "Dolor sat",
+            "createdAt": "2022-02-15T03:45:32.669Z",
+            "updatedAt": "2022-02-17T00:30:02.573Z",
+            "publishedAt": "2022-02-17T00:07:49.491Z",
+          },
+        },
+      },
     },
   },
   "meta": {},
@@ -82,10 +104,78 @@ Once the plugin has been installed, configured and enabled any request to the St
 {
   "data": {
     "id": 1,
-    "title": "the title",
+    "title": "Lorem Ipsum",
     "createdAt": "2022-02-11T01:51:49.902Z",
     "updatedAt": "2022-02-11T01:51:52.797Z",
     "publishedAt": "2022-02-11T01:51:52.794Z",
+    "ipsum": {
+      "data": {
+        "id": 2,
+        "title": "Dolor sat",
+        "createdAt": "2022-02-15T03:45:32.669Z",
+        "updatedAt": "2022-02-17T00:30:02.573Z",
+        "publishedAt": "2022-02-17T00:07:49.491Z",
+      },
+    },
+  },
+  "meta": {},
+}
+```
+
+### Remove the data key
+
+This response transform will remove the data key from the response and shift the attribute data to be top level.
+
+#### Before
+
+```json
+{
+  "data": {
+    "id": 1,
+    "attributes": {
+      "title": "Lorem Ipsum",
+      "createdAt": "2022-02-11T01:51:49.902Z",
+      "updatedAt": "2022-02-11T01:51:52.797Z",
+      "publishedAt": "2022-02-11T01:51:52.794Z",
+      "ipsum": {
+        "data": {
+          "id":2,
+          "attributes": {
+            "title": "Dolor sat",
+            "createdAt": "2022-02-15T03:45:32.669Z",
+            "updatedAt": "2022-02-17T00:30:02.573Z",
+            "publishedAt": "2022-02-17T00:07:49.491Z",
+          },
+        },
+      },
+    },
+  },
+  "meta": {},
+}
+```
+
+#### After
+
+
+```json
+{
+  "data": {
+    "id": 1,
+    "attributes": {
+      "title": "Lorem Ipsum",
+      "createdAt": "2022-02-11T01:51:49.902Z",
+      "updatedAt": "2022-02-11T01:51:52.797Z",
+      "publishedAt": "2022-02-11T01:51:52.794Z",
+      "ipsum": {
+        "id":2,
+        "attributes": {
+          "title": "Dolor sat",
+          "createdAt": "2022-02-15T03:45:32.669Z",
+          "updatedAt": "2022-02-17T00:30:02.573Z",
+          "publishedAt": "2022-02-17T00:07:49.491Z",
+        },
+      },
+    },
   },
   "meta": {},
 }
