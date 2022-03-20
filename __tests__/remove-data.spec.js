@@ -1,31 +1,31 @@
 'use strict';
 
 const transformService = require('../server/services/transform-service');
-const { initial, removeAttributesKey } = require('./mock');
+const { initial, removeDataKey } = require('./mock');
 
 const { transformResponse } = transformService();
-const transformOptions = { removeAttributesKey: true };
+const transformOptions = { removeDataKey: true };
 
-describe('removeAttributesKey', () => {
+describe('removeDataKey', () => {
 	// single relation
 	test('object with data property of type object', () => {
 		const result = transformResponse(transformOptions, initial.dataObject);
 		expect(result).toBeDefined();
-		expect(result).toEqual(removeAttributesKey.dataObject);
+		expect(result).toEqual(removeDataKey.dataObject);
 	});
 
 	// multiple relation
 	test('object with data property of type array', () => {
 		const result = transformResponse(transformOptions, initial.dataArray);
 		expect(result).toBeDefined();
-		expect(result).toEqual(removeAttributesKey.dataArray);
+		expect(result).toEqual(removeDataKey.dataArray);
 	});
 
 	// single component
 	test('object with id property', () => {
 		const result = transformResponse(transformOptions, initial.id);
 		expect(result).toBeDefined();
-		expect(result).toEqual(removeAttributesKey.id);
+		expect(result).toEqual(removeDataKey.id);
 	});
 
 	// multiple components
@@ -33,20 +33,20 @@ describe('removeAttributesKey', () => {
 	test('array of objects containing an id property', () => {
 		const result = transformResponse(transformOptions, initial.arrayWithIds);
 		expect(result).toBeDefined();
-		expect(result).toEqual(removeAttributesKey.arrayWithIds);
+		expect(result).toEqual(removeDataKey.arrayWithIds);
 	});
 
 	// skip single media
 	test('object with provider property', () => {
 		const result = transformResponse(transformOptions, initial.provider);
 		expect(result).toBeDefined();
-		expect(result).toEqual(removeAttributesKey.provider);
+		expect(result).toEqual(removeDataKey.provider);
 	});
 
 	// skip multi media
 	test('array of objects containing a provider property', () => {
 		const result = transformResponse(transformOptions, initial.arrayWithProviders);
 		expect(result).toBeDefined();
-		expect(result).toEqual(removeAttributesKey.arrayWithProviders);
+		expect(result).toEqual(removeDataKey.arrayWithProviders);
 	});
 });
