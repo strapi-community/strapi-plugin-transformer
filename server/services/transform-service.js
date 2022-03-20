@@ -90,8 +90,8 @@ module.exports = () => ({
 	},
 
 	response(settings, data) {
-		if (settings && settings.transforms) {
-			data = this.transformResponse(settings.transforms, data);
+		if (settings && settings.responseTransforms) {
+			data = this.transformResponse(settings.responseTransforms, data);
 		}
 
 		return data;
