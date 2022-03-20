@@ -1,7 +1,7 @@
 {
 	"$schema": "https://json.schemastore.org/package",
 	"name": "strapi-plugin-transformer",
-	"version": "1.0.3",
+	"version": "2.0.0",
 	"description": "A plugin for Strapi Headless CMS that provides the ability to transform the API request and/or response.",
 	"scripts": {
 		"lint": "eslint . --fix",
