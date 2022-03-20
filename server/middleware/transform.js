@@ -2,10 +2,9 @@
 
 const { getPluginService } = require('../util/getPluginService');
 const { isAPIRequest } = require('../util/isAPIRequest');
-const { pluginId } = require('../util/pluginId');
 
 const transform = async (strapi, ctx, next) => {
-	const settings = strapi.config.get(`plugin.${pluginId}`);
+	const settings = getPluginService('settingsService').get();
 
 	await next();
 
