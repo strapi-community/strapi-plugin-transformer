@@ -14,11 +14,23 @@ describe('removeDataKey', () => {
 		expect(result).toEqual(removeDataKey.dataObject);
 	});
 
+	test('object with data property of type null', () => {
+		const result = transformResponse(transformOptions, initial.dataWithNull);
+		expect(result).toBeDefined();
+		expect(result).toEqual(removeDataKey.dataWithNull);
+	});
+
 	// multiple relation
 	test('object with data property of type array', () => {
 		const result = transformResponse(transformOptions, initial.dataArray);
 		expect(result).toBeDefined();
 		expect(result).toEqual(removeDataKey.dataArray);
+	});
+
+	test('object with data property of type array with no length', () => {
+		const result = transformResponse(transformOptions, initial.dataWithEmptyArray);
+		expect(result).toBeDefined();
+		expect(result).toEqual(removeDataKey.dataWithEmptyArray);
 	});
 
 	// single component

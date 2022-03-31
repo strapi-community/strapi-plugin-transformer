@@ -61,6 +61,22 @@ module.exports = {
 			},
 		],
 	},
+	dataWithNull: {
+		id: 1,
+		title: 'Lorem',
+		createdAt: '2022-02-17T00:29:00.833Z',
+		updatedAt: '2022-02-17T00:29:03.988Z',
+		publishedAt: '2022-02-17T00:29:03.986Z',
+		singleRelation: null,
+	},
+	dataWithEmptyArray: {
+		id: 1,
+		title: 'Lorem',
+		createdAt: '2022-02-15T03:45:32.669Z',
+		updatedAt: '2022-02-17T00:30:02.573Z',
+		publishedAt: '2022-02-17T00:07:49.491Z',
+		manyRelation: [],
+	},
 	id: {
 		id: 1,
 		title: 'Lorem',

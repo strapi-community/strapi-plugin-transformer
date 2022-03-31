@@ -14,11 +14,23 @@ describe('All response transforms', () => {
 		expect(result).toEqual(allResponseTransforms.dataObject);
 	});
 
+	test('object with data property of type null', () => {
+		const result = transformResponse(transformOptions, initial.dataWithNull);
+		expect(result).toBeDefined();
+		expect(result).toEqual(allResponseTransforms.dataWithNull);
+	});
+
 	// multiple relation
 	test('object with data property of type array', () => {
 		const result = transformResponse(transformOptions, initial.dataArray);
 		expect(result).toBeDefined();
 		expect(result).toEqual(allResponseTransforms.dataArray);
+	});
+
+	test('object with data property of type array with no length', () => {
+		const result = transformResponse(transformOptions, initial.dataWithEmptyArray);
+		expect(result).toBeDefined();
+		expect(result).toEqual(allResponseTransforms.dataWithEmptyArray);
 	});
 
 	// single component
