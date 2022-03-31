@@ -47,7 +47,7 @@ module.exports = () => ({
 
 			// relation(s)
 			if (_.has(value, 'data')) {
-				let relation;
+				let relation = null;
 				// single
 				if (_.isObject(value.data)) {
 					relation = traverse(transforms, value.data);
