@@ -28,7 +28,7 @@ yarn add strapi-plugin-transformer
 
 ## Configuration
 
-The plugin configuration is stored in a config file located at `./config/plugins.js`.
+The plugin configuration is stored in a config file located at `./config/plugins.js`. If this file doesn't exists, you will need to create it.
 
 A sample configuration
 
