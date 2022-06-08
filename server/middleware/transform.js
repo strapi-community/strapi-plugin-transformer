@@ -14,7 +14,7 @@ const transform = async (strapi, ctx, next) => {
 	}
 
 	// only process api requests.
-	if (isAPIRequest(ctx, settings.prefix)) {
+	if (isAPIRequest(ctx)) {
 		const { data } = ctx.body;
 
 		// ensure no error returned.
