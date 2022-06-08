@@ -1,7 +1,10 @@
 'use strict';
 
-const isAPIRequest = (ctx, prefix = '/api/') =>
-	ctx.request && ctx.request.url && ctx.request.url.indexOf(prefix) !== -1;
+const isAPIRequest = (ctx) =>
+	ctx.state &&
+	ctx.state.route &&
+	ctx.state.route.info &&
+	ctx.state.route.info.type === 'content-api';
 
 module.exports = {
 	isAPIRequest,
