@@ -181,6 +181,29 @@ This response transform will remove the data key from the response and shift the
 }
 ```
 
+## Supported Headers
+
+| Name | Description | Type | Default | Required |
+| -------- | ----------- | ---- | ------- | -------- |
+| Strapi-Transformer-Ignore | Indicates if transform should be ignored for this request | String | 'false' | No |
+
+### CORS
+By default CORS will block any custom headers. To enable custom headers to be accepted the [cors middlware](https://docs.strapi.io/developer-docs/latest/setup-deployment-guides/configurations/required/middlewares.html#cors) headers property must include the custom header(s) that should be accepted.
+
+Example CORS configuration
+```js
+module.exports = [
+  // ..
+  {
+    name: 'strapi::cors',
+    config: {
+      headers: ['Strapi-Transformer-Ignore'],
+    },
+  },
+  // ..
+]
+```
+
 ## Bugs
 
 If any bugs are found please report them as a [Github Issue](https://github.com/ComfortablyCoding/strapi-plugin-transformer/issues)
