@@ -10,7 +10,11 @@ A plugin for [Strapi](https://github.com/strapi/strapi) that provides the abilit
 
 The installation requirements are the same as Strapi itself and can be found in the documentation on the [Quick Start](https://strapi.io/documentation/developer-docs/latest/getting-started/quick-start.html) page in the Prerequisites info card.
 
-### Supported Strapi versions
+### Support
+
+**IMPORTANT**: GraphQL is not supported, see [#23](https://github.com/ComfortablyCoding/strapi-plugin-transformer/issues/23) and [#13](https://github.com/ComfortablyCoding/strapi-plugin-transformer/discussions/13) for additional context.
+
+#### Strapi versions
 
 - v4.x.x
 
