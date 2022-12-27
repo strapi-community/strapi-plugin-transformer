@@ -12,7 +12,7 @@ The installation requirements are the same as Strapi itself and can be found in 
 
 ### Support
 
-**IMPORTANT**: GraphQL is not supported see [#23](https://github.com/ComfortablyCoding/strapi-plugin-transformer/issues/23) and [#13](https://github.com/ComfortablyCoding/strapi-plugin-transformer/discussions/13) for additional context
+**IMPORTANT**: GraphQL is not supported, see [#23](https://github.com/ComfortablyCoding/strapi-plugin-transformer/issues/23) and [#13](https://github.com/ComfortablyCoding/strapi-plugin-transformer/discussions/13) for additional context.
 
 #### Strapi versions
 
