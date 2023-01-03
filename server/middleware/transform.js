@@ -21,14 +21,19 @@ const transform = async (strapi, ctx, next) => {
 	}
 
 	// only process api requests.
-	if (isAPIRequest(ctx)) {
-		const { data } = ctx.body;
-
-		// ensure no error returned.
-		if (data) {
-			ctx.body['data'] = getPluginService('transformService').response(settings, data);
-		}
+	if (!isAPIRequest(ctx)) {
+		return;
 	}
+
+	// ensure no error returned.
+	if (!ctx.body.data) {
+		return;
+	}
+
+	// execute response transforms
+	settings.hooks.preResponseTransform(ctx);
+	ctx.body['data'] = getPluginService('transformService').response(settings, ctx.body.data);
+	settings.hooks.postResponseTransform(ctx);
 };
 
 module.exports = ({ strapi }) => {
