@@ -7,20 +7,9 @@ const { isAPIRequest } = require('../util/isAPIRequest');
 const transform = async (strapi, ctx, next) => {
 	const settings = getPluginService('settingsService').get();
 
-	const method = ctx.request.method;
-
-	// TODO: need to recognize Content APIs
-	//   -- `isAPIRequest()` not working here due to `ctx` is incomplete before Strapi handle the request
-
-	if (method === 'PUT' || method === 'POST') {
-		let reqBody = ctx.request.body;
-
-		// TODO: get real config
-		if ('wrapBodyWithDataKey') {
-			reqBody = { data: reqBody };
-			ctx.request.body = reqBody;
-		}
-	}
+	// if (ctx.request.url) {
+	getPluginService('transformService').request(settings, ctx);
+	// }
 
 	await next();
 

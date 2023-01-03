@@ -89,6 +89,20 @@ module.exports = () => ({
 		return data;
 	},
 
+	/**
+	 *
+	 * @param {object} transforms
+	 * @param {boolean} transforms.wrapBodyWithDataKey
+	 * @param {object} body
+	 * @returns {object} transformed data
+	 */
+	transformRequest: function traverse(transforms, ctx) {
+		// wrapBodyWithDataKey
+		if (transforms.wrapBodyWithDataKey) {
+			wrapBodyWithDataKey(ctx);
+		}
+	},
+
 	response(settings, data) {
 		if (settings && settings.responseTransforms) {
 			data = this.transformResponse(settings.responseTransforms, data);
@@ -96,4 +110,23 @@ module.exports = () => ({
 
 		return data;
 	},
+
+	request(settings, ctx) {
+		if (settings && settings.requestTransforms) {
+			this.transformRequest(settings.requestTransforms, ctx);
+		}
+	},
 });
+
+function wrapBodyWithDataKey(ctx) {
+	if (ctx.method !== 'POST' && ctx.method !== 'PUT') {
+		return ctx;
+	}
+
+	if (!_.has(ctx, 'request.body')) {
+		return ctx;
+	}
+
+	ctx.request.body = { data: ctx.request.body };
+	return ctx;
+}
