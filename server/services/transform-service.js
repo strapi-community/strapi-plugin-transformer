@@ -13,7 +13,7 @@ module.exports = () => ({
 	 */
 	transformResponse: function traverse(transforms, data) {
 		// removeAttributeKey specific transformations
-		if (transforms.removeAttributesKey) {
+		if (_.has(transforms, 'removeAttributesKey')) {
 			// single
 			if (_.has(data, 'attributes')) {
 				return traverse(transforms, removeObjectKey(data, 'attributes'));
@@ -32,7 +32,7 @@ module.exports = () => ({
 			}
 
 			// removeDataKey specific transformations
-			if (transforms.removeDataKey) {
+			if (_.has(transforms, 'removeDataKey')) {
 				// single
 				if (_.isObject(value)) {
 					data[key] = traverse(transforms, value);
@@ -57,7 +57,7 @@ module.exports = () => ({
 					relation = value.data.map((e) => traverse(transforms, e));
 				}
 
-				if (transforms.removeDataKey) {
+				if (_.has(transforms, 'removeDataKey')) {
 					data[key] = relation;
 				} else {
 					data[key]['data'] = relation;
