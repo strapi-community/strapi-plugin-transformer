@@ -1,7 +1,6 @@
 'use strict';
 
 const _ = require('lodash');
-const { removeObjectKey } = require('../util/removeObjectKey');
 
 module.exports = () => ({
 	/**
@@ -89,11 +88,16 @@ module.exports = () => ({
 		return data;
 	},
 
-	response(settings, data) {
-		if (settings && settings.responseTransforms) {
-			data = this.transformResponse(settings.responseTransforms, data);
+	response(settings, ctx) {
+		if (_.has(settings, ['responseTransforms'])) {
+			this.transformResponse(settings.requestTransforms, ctx.body.data);
 		}
-
-		return data;
 	},
 });
+
+function removeObjectKey(object, key) {
+	return {
+		id: object.id,
+		...object[key],
+	};
+}
