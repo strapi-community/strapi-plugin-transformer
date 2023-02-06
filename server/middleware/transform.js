@@ -14,8 +14,13 @@ const transform = async (strapi, ctx, next) => {
 		return;
 	}
 
-	// ensure body exists (occurs on non existent route) and no error returned
-	if (!_.has(ctx, ['body', 'data'])) {
+	// ensure body exists, occurs on non existent route
+	if (!ctx.body) {
+		return;
+	}
+
+	// ensure no error returned.
+	if (!ctx.body.data) {
 		return;
 	}
 
