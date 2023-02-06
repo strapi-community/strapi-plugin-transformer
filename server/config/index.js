@@ -5,8 +5,8 @@ const { pluginConfigSchema } = require('./schema');
 module.exports = {
 	default: () => ({
 		hooks: {
-			preResponseTransform: (ctx) => {},
-			postResponseTransform: (ctx) => {},
+			preResponseTransform: () => {},
+			postResponseTransform: () => {},
 		},
 	}),
 	validator: async (config) => {

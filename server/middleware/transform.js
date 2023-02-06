@@ -6,13 +6,16 @@ const { getPluginService } = require('../util/getPluginService');
 const transform = async (strapi, ctx, next) => {
 	const settings = getPluginService('settingsService').get();
 
-	await next();
-
 	// skip any requests that have ignore header
 	const transformIgnoreHeader = _.get(ctx, ['headers', 'strapi-transformer-ignore'], 'false');
 	if (transformIgnoreHeader === 'true') {
-		return;
+		return next();
 	}
+
+	// execute request transforms
+	getPluginService('transformService').request(settings, ctx);
+
+	await next();
 
 	// ensure body exists, occurs on non existent route
 	if (!ctx.body) {

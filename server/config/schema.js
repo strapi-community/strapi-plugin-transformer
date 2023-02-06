@@ -7,6 +7,9 @@ const pluginConfigSchema = yup.object().shape({
 		removeAttributesKey: yup.bool(),
 		removeDataKey: yup.bool(),
 	}),
+	requestTransforms: yup.object().shape({
+		wrapBodyWithDataKey: yup.bool(),
+	}),
 	hooks: yup.object().shape({
 		preResponseTransform: yup.object().test({
 			name: 'preResponseTransform',
