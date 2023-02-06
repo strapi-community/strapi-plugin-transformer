@@ -7,7 +7,6 @@ const { removeObjectKey } = require('./util');
  * @param {boolean} transforms.removeAttributesKey
  * @param {boolean} transforms.removeDataKey
  * @param {object} ctx
- * @returns {object} transformed response
  */
 function transformResponse(transforms, ctx) {
 	// transform data
