@@ -61,6 +61,8 @@ module.exports = ({ env }) => ({
 | responseTransforms | The transformations to enable for the API response | Object | undefined | No |
 | responseTransforms.removeAttributesKey | Removes the attributes key from the response | Boolean | false | No |
 | responseTransforms.removeDataKey | Removes the data key from the response | Boolean | false | No |
+| requestTransforms | The transformations to enable for an API request | Object | undefined | No |
+| responseTransforms.wrapBodyWithDataKey | Auto wraps the body of PUT and POST requests with a data key | Boolean | false | No |
 | hooks | The hooks to enable for the plugin | Object | undefined | No |
 | hooks.preResponseTransform | A hook that executes before the Response Transforms are applied | Function | None | No |
 | hooks.postResponseTransform | A hook that executes after the Response Transforms are applied | Function | None | No |
