@@ -12,15 +12,15 @@ module.exports = ({ strapi }) => {
 			continue;
 		}
 
-		const apiRoutes = _.get(apis, [ct, 'routes'], []);
+		const apiRoutes = _.get(apis, [ct, 'routes', ct, 'routes'], []);
 		for (let i = 0; i < apiRoutes.length; i++) {
 			// ensure path exists
 			if (!_.has(apiRoutes[i], 'config')) {
 				_.set(strapi, ['api', ct, 'routes', ct, 'routes', i, 'config'], {});
 			}
 
-			if (!_.has(apiRoutes[i], 'config', 'middlewares')) {
-				_.set(strapi, ['api', ct, 'routes', ct, 'routes', i, 'config', 'middleware'], []);
+			if (!_.has(apiRoutes[i], ['config', 'middlewares'])) {
+				_.set(strapi, ['api', ct, 'routes', ct, 'routes', i, 'config', 'middlewares'], []);
 			}
 
 			// register route middleware
