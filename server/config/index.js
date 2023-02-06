@@ -4,7 +4,6 @@ const { pluginConfigSchema } = require('./schema');
 
 module.exports = {
 	default: () => ({
-		prefix: '/api/',
 		hooks: {
 			preResponseTransform: (ctx) => {},
 			postResponseTransform: (ctx) => {},

@@ -42,7 +42,6 @@ module.exports = ({ env }) => ({
  'transformer': {
     enabled: true,
     config: {
-      prefix: '/api/',
       responseTransforms: {
         removeAttributesKey: true,
         removeDataKey: true,
@@ -59,7 +58,6 @@ module.exports = ({ env }) => ({
 
 | Property | Description | Type | Default | Required |
 | -------- | ----------- | ---- | ------- | -------- |
-| prefix | The prefix for the API | String | '/api/' | No |
 | responseTransforms | The transformations to enable for the API response | Object | undefined | No |
 | responseTransforms.removeAttributesKey | Removes the attributes key from the response | Boolean | false | No |
 | responseTransforms.removeDataKey | Removes the data key from the response | Boolean | false | No |
