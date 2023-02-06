@@ -90,7 +90,7 @@ module.exports = () => ({
 
 	response(settings, ctx) {
 		if (_.has(settings, ['responseTransforms'])) {
-			this.transformResponse(settings.requestTransforms, ctx.body.data);
+			ctx.body.data = this.transformResponse(settings.responseTransforms, ctx.body.data);
 		}
 	},
 });
