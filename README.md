@@ -178,7 +178,6 @@ This response transform will remove the data key from the response and shift the
 
 #### After
 
-
 ```json
 {
   "data": {
@@ -200,6 +199,28 @@ This response transform will remove the data key from the response and shift the
     },
   },
   "meta": {},
+}
+```
+
+### Auto wrap the body content with a data key
+
+This request transform will auto wrap the body content with a surrounding data key on all enabled routes.
+
+#### Before
+
+```json
+{
+  "title": "Lorem Ipsum",
+}
+```
+
+#### After
+
+```json
+{
+  "data": {
+    "title": "Lorem Ipsum",
+  }
 }
 ```
 
