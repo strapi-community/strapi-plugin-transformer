@@ -45,6 +45,19 @@ module.exports = ({ env }) => ({
       responseTransforms: {
         removeAttributesKey: true,
         removeDataKey: true,
+      },
+      requestTransforms : {
+        wrapBodyWithDataKey: true
+      },
+      hooks: {
+        preResponseTransform : (ctx) => console.log('hello from the preResponseTransform hook!'),
+        postResponseTransform : (ctx) => console.log('hello from the postResponseTransform hook!')
+      },
+      denyList: {
+        'api::article.article': true,
+        'api::category.category': {
+          'GET':true,
+        }
       }
     }
   },
@@ -62,10 +75,13 @@ module.exports = ({ env }) => ({
 | responseTransforms.removeAttributesKey | Removes the attributes key from the response | Boolean | false | No |
 | responseTransforms.removeDataKey | Removes the data key from the response | Boolean | false | No |
 | requestTransforms | The transformations to enable for an API request | Object | undefined | No |
-| responseTransforms.wrapBodyWithDataKey | Auto wraps the body of PUT and POST requests with a data key | Boolean | false | No |
+| requestTransforms.wrapBodyWithDataKey | Auto wraps the body of PUT and POST requests with a data key | Boolean | false | No |
 | hooks | The hooks to enable for the plugin | Object | undefined | No |
 | hooks.preResponseTransform | A hook that executes before the Response Transforms are applied | Function | None | No |
 | hooks.postResponseTransform | A hook that executes after the Response Transforms are applied | Function | None | No |
+| denyList | A list of content type uids that the transforms should ignore | Object | None | No |
+| denyList[uid] | THe uid of the content type to ignore | Boolean or Object | false | No |
+| denyList[uid].method | The specific method of the uid to ignore | Boolean | false | No |
 ## Usage
 
 Once the plugin has been installed, configured and enabled any request to the Strapi API will be auto transformed.
@@ -162,7 +178,6 @@ This response transform will remove the data key from the response and shift the
 
 #### After
 
-
 ```json
 {
   "data": {
@@ -184,6 +199,28 @@ This response transform will remove the data key from the response and shift the
     },
   },
   "meta": {},
+}
+```
+
+### Auto wrap the body content with a data key
+
+This request transform will auto wrap the body content with a surrounding data key on all enabled routes.
+
+#### Before
+
+```json
+{
+  "title": "Lorem Ipsum",
+}
+```
+
+#### After
+
+```json
+{
+  "data": {
+    "title": "Lorem Ipsum",
+  }
 }
 ```
 
