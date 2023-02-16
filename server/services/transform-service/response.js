@@ -10,7 +10,7 @@ const { removeObjectKey } = require('./util');
  */
 function transformResponse(transforms, ctx) {
 	// transform data
-	if (_.has(transforms, 'removeAttributesKey') || _.has(transforms, 'removeDataKey')) {
+	if (transforms.removeAttributesKey || transforms.removeDataKey) {
 		ctx.body.data = modifyResponseBodyData(transforms, ctx.body.data);
 	}
 }
@@ -26,7 +26,7 @@ function transformResponse(transforms, ctx) {
  */
 function modifyResponseBodyData(transforms, data) {
 	// removeAttributeKey specific transformations
-	if (_.has(transforms, 'removeAttributesKey')) {
+	if (transforms.removeAttributesKey) {
 		// single
 		if (_.has(data, 'attributes')) {
 			return modifyResponseBodyData(transforms, removeObjectKey(data, 'attributes'));
@@ -45,7 +45,7 @@ function modifyResponseBodyData(transforms, data) {
 		}
 
 		// removeDataKey specific transformations
-		if (_.has(transforms, 'removeDataKey')) {
+		if (transforms.removeDataKey) {
 			// single
 			if (_.isObject(value)) {
 				data[key] = modifyResponseBodyData(transforms, value);
@@ -70,7 +70,7 @@ function modifyResponseBodyData(transforms, data) {
 				relation = value.data.map((e) => modifyResponseBodyData(transforms, e));
 			}
 
-			if (_.has(transforms, 'removeDataKey')) {
+			if (transforms.removeDataKey) {
 				data[key] = relation;
 			} else {
 				data[key]['data'] = relation;
