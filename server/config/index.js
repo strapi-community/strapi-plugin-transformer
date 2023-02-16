@@ -9,7 +9,7 @@ module.exports = {
 			postResponseTransform: () => {},
 		},
 	}),
-	validator: async (config) => {
-		await pluginConfigSchema.validate(config);
+	validator: (config) => {
+		pluginConfigSchema.validateSync(config);
 	},
 };
