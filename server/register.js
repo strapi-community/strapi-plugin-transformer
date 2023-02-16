@@ -7,6 +7,13 @@ const { getPluginService } = require('./util/getPluginService');
 
 module.exports = ({ strapi }) => {
 	const settings = getPluginService('settingsService').get();
+	let ctFilterMode = _.get(settings, ['contentTypeFilter', 'mode'], 'allow');
+	const ctFilterUIDs = _.get(settings, ['contentTypeFilter', 'uids'], {});
+
+	// default uid list to all apis
+	if (_.size(ctFilterUIDs) === 0) {
+		ctFilterMode = 'none';
+	}
 
 	// register transforms on all api routes
 	const apis = _.get(strapi, ['api'], {});
@@ -15,19 +22,23 @@ module.exports = ({ strapi }) => {
 			continue;
 		}
 
-		// skip any uids in denylist that are completely denied
+		// respect ct uid filter
 		const uid = apis[ct].contentTypes[ct].uid;
-		const isDeniedUID = _.get(settings, ['denyList', uid], false);
-		if (isDeniedUID && typeof isDeniedUID === 'boolean') {
+		const filterUID = _.get(settings, ['contentTypeFilter', 'uids', uid], false);
+		if (ctFilterMode === 'allow' && !filterUID && _.isBoolean(filterUID)) {
+			continue;
+		} else if (ctFilterMode === 'deny' && filterUID && _.isBoolean(filterUID)) {
 			continue;
 		}
 
 		const apiRoutes = _.get(apis, [ct, 'routes', ct, 'routes'], []);
 		for (let i = 0; i < apiRoutes.length; i++) {
-			// skip any methods in deny list for this uid
+			// respect ct uid method filter
 			const method = apiRoutes[i].method;
-			const isDeniedMethod = _.get(settings, ['denyList', uid, method], false);
-			if (isDeniedMethod) {
+			const filterMethod = _.get(settings, ['contentTypeFilter', 'uids', uid, method], false);
+			if (ctFilterMode === 'allow' && !filterMethod) {
+				continue;
+			} else if (ctFilterMode === 'deny' && filterMethod) {
 				continue;
 			}
 

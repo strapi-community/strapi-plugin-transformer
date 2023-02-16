@@ -53,10 +53,13 @@ module.exports = ({ env }) => ({
         preResponseTransform : (ctx) => console.log('hello from the preResponseTransform hook!'),
         postResponseTransform : (ctx) => console.log('hello from the postResponseTransform hook!')
       },
-      denyList: {
-        'api::article.article': true,
-        'api::category.category': {
-          'GET':true,
+      contentTypeFilter: {
+        mode: 'allow',
+        uids: {
+          'api::article.article': true,
+          'api::category.category': {
+            'GET':true,
+          }
         }
       }
     }
@@ -79,9 +82,11 @@ module.exports = ({ env }) => ({
 | hooks | The hooks to enable for the plugin | Object | undefined | No |
 | hooks.preResponseTransform | A hook that executes before the Response Transforms are applied | Function | None | No |
 | hooks.postResponseTransform | A hook that executes after the Response Transforms are applied | Function | None | No |
-| denyList | A list of content type uids that the transforms should ignore | Object | None | No |
-| denyList[uid] | THe uid of the content type to ignore | Boolean or Object | false | No |
-| denyList[uid].method | The specific method of the uid to ignore | Boolean | false | No |
+| contentTypeFilter | The content types to deny or allow the middleware to be regiestered on. Defaults to allow all content types | Object | None | No |
+| cotentTypeFilter.mode | The filter mode. Current supported modes are `allow` and `deny` | String | 'allow' | No |
+| contentTypeFilter.uids | The uids to filter | Object | None | No |
+| denyList.uids[uid] | The uid of the content type to filter | Boolean or Object | false | No |
+| denyList.uids[uid].method | The specific method of the uid to filter | Boolean | false | No |
 ## Usage
 
 Once the plugin has been installed, configured and enabled any request to the Strapi API will be auto transformed.

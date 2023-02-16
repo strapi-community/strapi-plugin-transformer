@@ -24,6 +24,10 @@ const pluginConfigSchema = yup.object().shape({
 			test: (value) => typeof value === 'function',
 		}),
 	}),
+	contentTypeFilter: yup.object().shape({
+		mode: yup.string().oneOf(['allow', 'deny']),
+		uids: yup.object(),
+	}),
 });
 
 module.exports = {
