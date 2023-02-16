@@ -8,7 +8,7 @@ const { removeObjectKey } = require('./util');
  * @param {boolean} transforms.removeDataKey
  * @param {object} ctx
  */
-function transformResponse(transforms, ctx) {
+function transformResponse(transforms = {}, ctx) {
 	// transform data
 	if (transforms.removeAttributesKey || transforms.removeDataKey) {
 		ctx.body.data = modifyResponseBodyData(transforms, ctx.body.data);
@@ -24,7 +24,7 @@ function transformResponse(transforms, ctx) {
  * @param {object} data
  * @returns {object} transformed body data
  */
-function modifyResponseBodyData(transforms, data) {
+function modifyResponseBodyData(transforms = {}, data) {
 	// removeAttributeKey specific transformations
 	if (transforms.removeAttributesKey) {
 		// single
