@@ -8,7 +8,7 @@ const _ = require('lodash');
  * @param {boolean} transforms.wrapBodyWithDataKey
  * @param {object} ctx
  */
-function transformRequest(transforms, ctx) {
+function transformRequest(transforms = {}, ctx) {
 	// wrapBodyWithDataKey
 	if (transforms.wrapBodyWithDataKey) {
 		wrapBodyWithDataKey(ctx);
