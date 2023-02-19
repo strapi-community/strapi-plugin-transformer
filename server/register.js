@@ -18,7 +18,7 @@ module.exports = ({ strapi }) => {
 	// register transforms on all api routes
 	const apis = _.get(strapi, ['api'], {});
 	for (const ct in apis) {
-		if (!Object.hasOwnProperty.call(apis, ct)) {
+		if (!Object.hasOwnProperty.call(apis, ct) || !apis[ct].contentTypes.hasOwnProperty('uid')) {
 			continue;
 		}
 
