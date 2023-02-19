@@ -18,7 +18,12 @@ module.exports = ({ strapi }) => {
 	// register transforms on all api routes
 	const apis = _.get(strapi, ['api'], {});
 	for (const ct in apis) {
-		if (!Object.hasOwnProperty.call(apis, ct) || !apis[ct].contentTypes.hasOwnProperty('uid')) {
+		if (!Object.hasOwnProperty.call(apis, ct)) {
+			continue;
+		}
+		
+		if(Object.keys(apis[ct].contentTypes).length === 0){
+			console.log("skipping due to being a custom controller type, most likely", ct)
 			continue;
 		}
 
