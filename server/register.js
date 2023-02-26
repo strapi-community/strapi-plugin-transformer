@@ -18,12 +18,19 @@ module.exports = ({ strapi }) => {
 	// register transforms on all api routes
 	const apis = _.get(strapi, ['api'], {});
 	for (const ct in apis) {
+		// ensure we are only processing direct properties
 		if (!Object.hasOwnProperty.call(apis, ct)) {
 			continue;
 		}
 
+		const uid = _.get(apis, [ct, 'contentTypes', ct, 'uid'], false);
+
+		// skip routes that do not have an associated content type (i.e. routes not using createCoreRouter)
+		if (!uid) {
+			continue;
+		}
+
 		// respect ct uid filter
-		const uid = apis[ct].contentTypes[ct].uid;
 		const filterUID = _.get(settings, ['contentTypeFilter', 'uids', uid], false);
 		if (ctFilterMode === 'allow' && !filterUID && _.isBoolean(filterUID)) {
 			continue;
