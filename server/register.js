@@ -21,11 +21,6 @@ module.exports = ({ strapi }) => {
 		if (!Object.hasOwnProperty.call(apis, ct)) {
 			continue;
 		}
-		
-		if(Object.keys(apis[ct].contentTypes).length === 0){
-			console.log("skipping due to being a custom controller type, most likely", ct)
-			continue;
-		}
 
 		// respect ct uid filter
 		const uid = apis[ct].contentTypes[ct].uid;
