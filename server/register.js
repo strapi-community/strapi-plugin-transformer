@@ -7,7 +7,7 @@ const { getPluginService } = require('./util/getPluginService');
 
 module.exports = ({ strapi }) => {
 	const settings = getPluginService('settingsService').get();
-	let ctFilterMode = _.get(settings, ['contentTypeFilter', 'mode'], 'allow');
+	let ctFilterMode = _.get(settings, ['contentTypeFilter', 'mode'], 'none');
 	const ctFilterUIDs = _.get(settings, ['contentTypeFilter', 'uids'], {});
 
 	// default uid list to all apis

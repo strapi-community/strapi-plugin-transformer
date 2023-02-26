@@ -74,17 +74,17 @@ module.exports = ({ env }) => ({
 
 | Property | Description | Type | Default | Required |
 | -------- | ----------- | ---- | ------- | -------- |
-| responseTransforms | The transformations to enable for the API response | Object | undefined | No |
+| responseTransforms | The transformations to enable for the API response | Object | N/A | No |
 | responseTransforms.removeAttributesKey | Removes the attributes key from the response | Boolean | false | No |
 | responseTransforms.removeDataKey | Removes the data key from the response | Boolean | false | No |
-| requestTransforms | The transformations to enable for an API request | Object | undefined | No |
+| requestTransforms | The transformations to enable for an API request | Object | N/A | No |
 | requestTransforms.wrapBodyWithDataKey | Auto wraps the body of PUT and POST requests with a data key | Boolean | false | No |
-| hooks | The hooks to enable for the plugin | Object | undefined | No |
-| hooks.preResponseTransform | A hook that executes before the Response Transforms are applied | Function | None | No |
-| hooks.postResponseTransform | A hook that executes after the Response Transforms are applied | Function | None | No |
-| contentTypeFilter | The content types to deny or allow the middleware to be regiestered on. Defaults to allow all content types | Object | None | No |
-| cotentTypeFilter.mode | The filter mode. Current supported modes are `allow` and `deny` | String | 'allow' | No |
-| contentTypeFilter.uids | The uids to filter | Object | None | No |
+| hooks | The hooks to enable for the plugin | Object | N/A | No |
+| hooks.preResponseTransform | A hook that executes before the Response Transforms are applied | Function | () => {} | No |
+| hooks.postResponseTransform | A hook that executes after the Response Transforms are applied | Function | () => {} | No |
+| contentTypeFilter | The content types to deny or allow the middleware to be regiestered on. Defaults to allow all content types | Object | N/A | No |
+| cotentTypeFilter.mode | The filter mode. Current supported modes are `none`, `allow` or `deny` | String | 'none' | No |
+| contentTypeFilter.uids | The uids to filter | Object | {} | No |
 | denyList.uids[uid] | The uid of the content type to filter | Boolean or Object | false | No |
 | denyList.uids[uid].method | The specific method of the uid to filter | Boolean | false | No |
 ## Usage
