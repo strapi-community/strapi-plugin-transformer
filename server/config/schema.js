@@ -25,7 +25,7 @@ const pluginConfigSchema = yup.object().shape({
 		}),
 	}),
 	contentTypeFilter: yup.object().shape({
-		mode: yup.string().oneOf(['allow', 'deny']),
+		mode: yup.string().oneOf(['allow', 'deny', 'none']),
 		uids: yup.object(),
 	}),
 });
