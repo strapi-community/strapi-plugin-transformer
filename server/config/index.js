@@ -8,7 +8,7 @@ module.exports = {
 			removeAttributesKey: false,
 			removeDataKey: false,
 		},
-			requestTransforms: {
+		requestTransforms: {
 			wrapBodyWithDataKey: false,
 		},
 		hooks: {
@@ -16,9 +16,9 @@ module.exports = {
 			postResponseTransform: () => {},
 		},
 		contentTypeFilter: {
-			mode: "allow",
-			uids: {}
-		  },
+			mode: 'none',
+			uids: {},
+		},
 	}),
 	validator: (config) => {
 		pluginConfigSchema.validateSync(config);
