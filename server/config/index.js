@@ -19,6 +19,10 @@ module.exports = {
 			mode: 'none',
 			uids: {},
 		},
+		plugins: {
+			mode: 'none',
+			ids: {},
+		},
 	}),
 	validator: (config) => {
 		pluginConfigSchema.validateSync(config);

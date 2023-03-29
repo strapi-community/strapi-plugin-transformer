@@ -28,6 +28,10 @@ const pluginConfigSchema = yup.object().shape({
 		mode: yup.string().oneOf(['allow', 'deny', 'none']),
 		uids: yup.object(),
 	}),
+	plugins: yup.object().shape({
+		mode: yup.string().oneOf(['allow', 'deny', 'none']),
+		ids: yup.object(),
+	}),
 });
 
 module.exports = {

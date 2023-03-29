@@ -34,7 +34,21 @@ yarn add strapi-plugin-transformer
 
 The plugin configuration is stored in a config file located at `./config/plugins.js`. If this file doesn't exists, you will need to create it.
 
-A sample configuration
+### Minimal Configuration
+
+
+```javascript
+module.exports = ({ env }) => ({
+  // ..
+ 'transformer': {
+    enabled: true,
+    config: {}
+  },
+  // ..
+});
+```
+
+### Sample configuration
 
 ```javascript
 module.exports = ({ env }) => ({
@@ -61,6 +75,11 @@ module.exports = ({ env }) => ({
             'GET':true,
           }
         }
+      },
+      plugins: {
+        uids: {
+          'slugify': true,
+        }
       }
     }
   },
@@ -83,10 +102,11 @@ module.exports = ({ env }) => ({
 | hooks.preResponseTransform | A hook that executes before the Response Transforms are applied | Function | () => {} | No |
 | hooks.postResponseTransform | A hook that executes after the Response Transforms are applied | Function | () => {} | No |
 | contentTypeFilter | The content types to deny or allow the middleware to be regiestered on. Defaults to allow all content types | Object | N/A | No |
-| cotentTypeFilter.mode | The filter mode. Current supported modes are `none`, `allow` or `deny` | String | 'none' | No |
+| contentTypeFilter.mode | The filter mode. Current supported modes are `none`, `allow` or `deny` | String | 'none' | No |
 | contentTypeFilter.uids | The uids to filter | Object | {} | No |
-| denyList.uids[uid] | The uid of the content type to filter | Boolean or Object | false | No |
-| denyList.uids[uid].method | The specific method of the uid to filter | Boolean | false | No |
+| plugins | The plugins to deny or allow the middleware to be regiestered on. Defaults to deny all plugins | Object | N/A | No |
+| plugins.mode | The filter mode. Current supported modes are `none`, `allow` or `deny` | String | 'none' | No |
+| plugins.uids | The plugin ids to filter. The plugin id is the name you set in the `plugins.js` file | Object | {} | No |
 ## Usage
 
 Once the plugin has been installed, configured and enabled any request to the Strapi API will be auto transformed.
