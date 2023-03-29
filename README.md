@@ -77,7 +77,7 @@ module.exports = ({ env }) => ({
         }
       },
       plugins: {
-        uids: {
+        ids: {
           'slugify': true,
         }
       }
@@ -106,7 +106,7 @@ module.exports = ({ env }) => ({
 | contentTypeFilter.uids | The uids to filter | Object | {} | No |
 | plugins | The plugins to deny or allow the middleware to be regiestered on. Defaults to deny all plugins | Object | N/A | No |
 | plugins.mode | The filter mode. Current supported modes are `none`, `allow` or `deny` | String | 'none' | No |
-| plugins.uids | The plugin ids to filter. The plugin id is the name you set in the `plugins.js` file | Object | {} | No |
+| plugins.ids | The plugin ids to filter. The plugin id is the name you set in the `plugins.js` file | Object | {} | No |
 ## Usage
 
 Once the plugin has been installed, configured and enabled any request to the Strapi API will be auto transformed.
