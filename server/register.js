@@ -5,63 +5,94 @@ const _ = require('lodash');
 const { transform } = require('./middleware/transform');
 const { getPluginService } = require('./util/getPluginService');
 
-module.exports = ({ strapi }) => {
+function addTransformMiddleware(route) {
+	// ensure path exists
+	if (!_.has(route, ['config', 'middlewares'])) {
+		_.set(route, ['config', 'middlewares'], []);
+	}
+
+	// register route middleware
+	route.config.middlewares.push((ctx, next) => transform(strapi, ctx, next));
+}
+
+function isAllowableAPI({ mode, uid, filterValues }) {
+	// respect ct uid filter
+	const filterUID = _.get(filterValues, [uid], false);
+	if (mode === 'allow' && !filterUID && _.isBoolean(filterUID)) {
+		return false;
+	} else if (mode === 'deny' && filterUID && _.isBoolean(filterUID)) {
+		return false;
+	}
+
+	return true;
+}
+
+function isAllowableMethod({ mode, uid, method, filterValues }) {
+	// respect ct uid method filter
+	const filterMethod = _.get(filterValues, [uid, method], null);
+	if (mode === 'allow' && !filterMethod && _.isBoolean(filterMethod)) {
+		return false;
+	} else if (mode === 'deny' && filterMethod && _.isBoolean(filterMethod)) {
+		return false;
+	}
+
+	return true;
+}
+
+function register({ strapi }) {
 	const settings = getPluginService('settingsService').get();
 	let ctFilterMode = _.get(settings, ['contentTypeFilter', 'mode'], 'none');
+	let pluginFilterMode = _.get(settings, ['plugins', 'mode'], 'allow');
 	const ctFilterUIDs = _.get(settings, ['contentTypeFilter', 'uids'], {});
+	const pluginFilterIDs = _.get(settings, ['plugins', 'ids'], {});
+	const apiTypes = ['api'];
 
 	// default uid list to all apis
 	if (_.size(ctFilterUIDs) === 0) {
 		ctFilterMode = 'none';
 	}
 
-	// register transforms on all api routes
-	const apis = _.get(strapi, ['api'], {});
-	for (const ct in apis) {
-		// ensure we are only processing direct properties
-		if (!Object.hasOwnProperty.call(apis, ct)) {
-			continue;
-		}
-
-		const uid = _.get(apis, [ct, 'contentTypes', ct, 'uid'], false);
-
-		// skip routes that do not have an associated content type (i.e. routes not using createCoreRouter)
-		if (!uid) {
-			continue;
-		}
-
-		// respect ct uid filter
-		const filterUID = _.get(settings, ['contentTypeFilter', 'uids', uid], false);
-		if (ctFilterMode === 'allow' && !filterUID && _.isBoolean(filterUID)) {
-			continue;
-		} else if (ctFilterMode === 'deny' && filterUID && _.isBoolean(filterUID)) {
-			continue;
-		}
-
-		const apiRoutes = _.get(apis, [ct, 'routes', ct, 'routes'], []);
-		for (let i = 0; i < apiRoutes.length; i++) {
-			// respect ct uid method filter
-			const method = apiRoutes[i].method;
-			const filterMethod = _.get(settings, ['contentTypeFilter', 'uids', uid, method], false);
-			if (ctFilterMode === 'allow' && !filterMethod) {
-				continue;
-			} else if (ctFilterMode === 'deny' && filterMethod) {
-				continue;
-			}
-
-			// ensure path exists
-			if (!_.has(apiRoutes[i], 'config')) {
-				_.set(strapi, ['api', ct, 'routes', ct, 'routes', i, 'config'], {});
-			}
-
-			if (!_.has(apiRoutes[i], ['config', 'middlewares'])) {
-				_.set(strapi, ['api', ct, 'routes', ct, 'routes', i, 'config', 'middlewares'], []);
-			}
-
-			// register route middleware
-			strapi.api[ct].routes[ct].routes[i].config.middlewares.push((ctx, next) =>
-				transform(strapi, ctx, next)
-			);
-		}
+	// default plugins list to none
+	if (_.size(pluginFilterIDs) !== 0) {
+		apiTypes.push('plugins');
 	}
-};
+
+	_.forEach(apiTypes, (apiType) => {
+		const mode = apiType === 'api' ? ctFilterMode : pluginFilterMode;
+		const filterValues = apiType === 'api' ? ctFilterUIDs : pluginFilterIDs;
+		_.forEach(strapi[apiType], (api, apiName) => {
+			const uid = _.get(api, ['contentTypes', apiName, 'uid'], apiName);
+			if (!isAllowableAPI({ uid, mode, filterValues })) {
+				return;
+			}
+
+			_.forEach(api.routes, (router) => {
+				// skip admin routes
+				if (router.type && router.type === 'admin') {
+					return;
+				}
+
+				if (router.routes) {
+					// process routes
+					_.forEach(router.routes, (route) => {
+						if (!isAllowableMethod({ uid, mode, filterValues, method: route.method })) {
+							return;
+						}
+
+						addTransformMiddleware(route);
+					});
+					return;
+				}
+
+				if (!isAllowableMethod({ uid, mode, filterValues, method: router.method })) {
+					return;
+				}
+
+				// process route
+				addTransformMiddleware(router);
+			});
+		});
+	});
+}
+
+module.exports = register;
