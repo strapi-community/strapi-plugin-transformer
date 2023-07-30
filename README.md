@@ -32,7 +32,7 @@ yarn add strapi-plugin-transformer
 
 ## Configuration
 
-The plugin configuration is stored in a config file located at `./config/plugins.js`. If this file doesn't exists, you will need to create it.
+The plugin configuration is stored in a config file located at `./config/plugins.js`. If this file doesn't exist, you will need to create it.
 
 ### Minimal Configuration
 
@@ -101,11 +101,11 @@ module.exports = ({ env }) => ({
 | hooks | The hooks to enable for the plugin | Object | N/A | No |
 | hooks.preResponseTransform | A hook that executes before the Response Transforms are applied | Function | () => {} | No |
 | hooks.postResponseTransform | A hook that executes after the Response Transforms are applied | Function | () => {} | No |
-| contentTypeFilter | The content types to deny or allow the middleware to be regiestered on. Defaults to allow all content types | Object | N/A | No |
-| contentTypeFilter.mode | The filter mode. Current supported modes are `none`, `allow` or `deny` | String | 'none' | No |
+| contentTypeFilter | The content types to deny or allow the middleware to be registered on. Defaults to allow all content types | Object | N/A | No |
+| contentTypeFilter.mode | The filter mode. Currently supported modes are `none`, `allow` or `deny` | String | 'none' | No |
 | contentTypeFilter.uids | The uids to filter | Object | {} | No |
-| plugins | The plugins to deny or allow the middleware to be regiestered on. Defaults to deny all plugins | Object | N/A | No |
-| plugins.mode | The filter mode. Current supported modes are `none`, `allow` or `deny` | String | 'none' | No |
+| plugins | The plugins to deny or allow the middleware to be registered on. Defaults to deny all plugins | Object | N/A | No |
+| plugins.mode | The filter mode. Currently supported modes are `none`, `allow` or `deny` | String | 'none' | No |
 | plugins.ids | The plugin ids to filter. The plugin id is the name you set in the `plugins.js` file | Object | {} | No |
 ## Usage
 
@@ -256,7 +256,7 @@ This request transform will auto wrap the body content with a surrounding data k
 | Strapi-Transformer-Ignore | Indicates if transform should be ignored for this request | String | 'false' | No |
 
 ### CORS
-By default CORS will block any custom headers. To enable custom headers to be accepted the [cors middlware](https://docs.strapi.io/developer-docs/latest/setup-deployment-guides/configurations/required/middlewares.html#cors) headers property must include the custom header(s) that should be accepted.
+By default, CORS will block any custom headers. To enable custom headers to be accepted the [cors middlware](https://docs.strapi.io/developer-docs/latest/setup-deployment-guides/configurations/required/middlewares.html#cors) headers property must include the custom header(s) that should be accepted.
 
 Example CORS configuration
 ```js
