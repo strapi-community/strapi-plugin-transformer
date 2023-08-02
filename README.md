@@ -102,7 +102,7 @@ module.exports = ({ env }) => ({
 | hooks.preResponseTransform | A hook that executes before the Response Transforms are applied | Function | () => {} | No |
 | hooks.postResponseTransform | A hook that executes after the Response Transforms are applied | Function | () => {} | No |
 | contentTypeFilter | The content types to deny or allow the middleware to be registered on. Defaults to allow all content types | Object | N/A | No |
-| contentTypeFilter.mode | The filter mode. Currently supported modes are `none`, `allow` or `deny` | String | 'none' | No |
+| contentTypeFilter.mode | The filter mode. The current supported modes are `none`, `allow` or `deny` | String | 'none' | No |
 | contentTypeFilter.uids | The uids to filter | Object | {} | No |
 | plugins | The plugins to deny or allow the middleware to be registered on. Defaults to deny all plugins | Object | N/A | No |
 | plugins.mode | The filter mode. Currently supported modes are `none`, `allow` or `deny` | String | 'none' | No |
