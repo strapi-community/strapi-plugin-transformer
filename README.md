@@ -105,7 +105,7 @@ module.exports = ({ env }) => ({
 | contentTypeFilter.mode | The filter mode. The current supported modes are `none`, `allow` or `deny` | String | 'none' | No |
 | contentTypeFilter.uids | The uids to filter | Object | {} | No |
 | plugins | The plugins to deny or allow the middleware to be registered on. Defaults to deny all plugins | Object | N/A | No |
-| plugins.mode | The filter mode. Currently supported modes are `none`, `allow` or `deny` | String | 'none' | No |
+| plugins.mode | The filter mode. The current supported modes are `none`, `allow` or `deny` | String | 'none' | No |
 | plugins.ids | The plugin ids to filter. The plugin id is the name you set in the `plugins.js` file | Object | {} | No |
 ## Usage
 
