@@ -1,6 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
+const { matchRule } = require('./util');
 
 /**
  *
@@ -11,7 +12,11 @@ const _ = require('lodash');
 function transformRequest(transforms = {}, ctx) {
 	// wrapBodyWithDataKey
 	if (transforms.wrapBodyWithDataKey) {
-		wrapBodyWithDataKey(ctx);
+		let wrap = true
+		if (transforms.ignoredRoutes !== undefined) {
+			wrap = transforms.ignoredRoutes.filter((r) => matchRule(ctx.request.url, r) === true ).length === 0
+		};
+		wrap &&	wrapBodyWithDataKey(ctx)
 	}
 }
 
