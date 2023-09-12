@@ -25,11 +25,11 @@ const pluginConfigSchema = yup.object().shape({
 		}),
 	}),
 	contentTypeFilter: yup.object().shape({
-		mode: yup.string().oneOf(['allow', 'deny', 'none']),
+		mode: yup.string().oneOf(['allow', 'deny']),
 		uids: yup.object(),
 	}),
 	plugins: yup.object().shape({
-		mode: yup.string().oneOf(['allow', 'deny', 'none']),
+		mode: yup.string().oneOf(['allow', 'deny']),
 		ids: yup.object(),
 	}),
 });

@@ -16,11 +16,9 @@ module.exports = {
 			postResponseTransform: () => {},
 		},
 		contentTypeFilter: {
-			mode: 'none',
 			uids: {},
 		},
 		plugins: {
-			mode: 'none',
 			ids: {},
 		},
 	}),
