@@ -1,5 +1,12 @@
 # strapi-plugin-transformer
 
+> [!CAUTION]  
+> **This plugin has been deprecated.**
+> 
+> Starting from Strapi v5 [the response structure has been flattened by default](https://docs.strapi.io/cms/migration/v4-to-v5/breaking-changes/new-response-format).
+> 
+> For other request or response transformations please use [Document Service Middlewares](https://docs.strapi.io/cms/api/document-service/middlewares), or [extend your controllers](https://docs.strapi.io/cms/backend-customization/controllers#extending-core-controllers).
+
 A plugin for [Strapi](https://github.com/strapi/strapi) that provides the ability to transform the API request and/or response.
 
 [![Downloads](https://img.shields.io/npm/dm/strapi-plugin-transformer?style=for-the-badge)](https://img.shields.io/npm/dm/strapi-plugin-transformer?style=for-the-badge)
