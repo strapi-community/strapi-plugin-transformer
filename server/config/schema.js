@@ -6,6 +6,7 @@ const pluginConfigSchema = yup.object().shape({
 	responseTransforms: yup.object().shape({
 		removeAttributesKey: yup.bool(),
 		removeDataKey: yup.bool(),
+		ignoreResponseKeys: yup.array(yup.string())
 	}),
 	requestTransforms: yup.object().shape({
 		wrapBodyWithDataKey: yup.bool(),

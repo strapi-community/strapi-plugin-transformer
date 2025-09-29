@@ -3,7 +3,7 @@
 const { modifyResponseBodyData } = require('../../server/services/transform-service/response');
 const { initial, allResponseTransforms } = require('../mock/response');
 
-const transformOptions = { removeAttributesKey: true, removeDataKey: true };
+const transformOptions = { removeAttributesKey: true, removeDataKey: true, ignoreResponseKeys: [] };
 
 describe('All response transforms', () => {
 	// single relation

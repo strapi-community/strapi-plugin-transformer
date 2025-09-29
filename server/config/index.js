@@ -7,6 +7,7 @@ module.exports = {
 		responseTransforms: {
 			removeAttributesKey: false,
 			removeDataKey: false,
+			ignoreResponseKeys: []
 		},
 		requestTransforms: {
 			wrapBodyWithDataKey: false,

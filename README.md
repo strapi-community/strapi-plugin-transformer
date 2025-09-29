@@ -66,6 +66,7 @@ module.exports = ({ env }) => ({
       responseTransforms: {
         removeAttributesKey: true,
         removeDataKey: true,
+        ignoreResponseKeys: []
       },
       requestTransforms : {
         wrapBodyWithDataKey: true
@@ -103,6 +104,7 @@ module.exports = ({ env }) => ({
 | responseTransforms | The transformations to enable for the API response | Object | N/A | No |
 | responseTransforms.removeAttributesKey | Removes the attributes key from the response | Boolean | false | No |
 | responseTransforms.removeDataKey | Removes the data key from the response | Boolean | false | No |
+| responseTransforms.ignoreResponseKeys | Ignores to remove at specific response data has any key from the keys | Array | [] | No |
 | requestTransforms | The transformations to enable for an API request | Object | N/A | No |
 | requestTransforms.wrapBodyWithDataKey | Auto wraps the body of PUT and POST requests with a data key | Boolean | false | No |
 | hooks | The hooks to enable for the plugin | Object | N/A | No |

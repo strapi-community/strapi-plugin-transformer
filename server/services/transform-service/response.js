@@ -6,11 +6,14 @@ const { removeObjectKey } = require('./util');
  * @param {object} transforms
  * @param {boolean} transforms.removeAttributesKey
  * @param {boolean} transforms.removeDataKey
+ * @param {Array.<string>} transforms.ignoreResponseKeys
  * @param {object} ctx
  */
 function transformResponse(transforms = {}, ctx) {
 	// transform data
 	if (transforms.removeAttributesKey || transforms.removeDataKey) {
+		transforms.ignoreResponseKeys = transforms.ignoreResponseKeys || [];
+
 		ctx.body.data = modifyResponseBodyData(transforms, ctx.body.data);
 	}
 }
@@ -21,6 +24,7 @@ function transformResponse(transforms = {}, ctx) {
  * @param {object} transforms
  * @param {boolean} transforms.removeAttributesKey
  * @param {boolean} transforms.removeDataKey
+ * @param {Array.<string>} transforms.ignoreResponseKeys
  * @param {object} data
  * @returns {object} transformed body data
  */
@@ -41,6 +45,10 @@ function modifyResponseBodyData(transforms = {}, data) {
 	// fields
 	_.forEach(data, (value, key) => {
 		if (!value) {
+			return;
+		}
+
+		if (transforms.ignoreResponseKeys.includes(key)) {
 			return;
 		}
 
