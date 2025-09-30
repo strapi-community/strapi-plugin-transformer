@@ -1,6 +1,6 @@
 'use strict';
 
-const pluginPkg = require('../../package.json');
+const pluginPkg = require('../../../package.json');
 
 /**
  * Returns the plugin id
